@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Konfio Data Engineering — Exchange Rate Pipeline
 
 Pipeline batch de tipos de cambio construido con **PySpark 3.5** y **Apache Iceberg**, con lógica incremental CDC y emisión de eventos (simulación Kafka).
@@ -274,4 +273,4 @@ Docker Compose sobreescribe estas variables para las rutas del contenedor (`/app
 5. **Single node:** El pipeline corre en `local[*]` mode (un solo nodo). Para producción se configuraría un cluster Spark, pero el código es el mismo.
 =======
 # konfio-data-pipeline
->>>>>>> refs/rewritten/Merge-remote-README-—-keep-local-version
+

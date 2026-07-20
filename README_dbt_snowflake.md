@@ -26,7 +26,7 @@ CDC Simulation:
               (Apr–Jun → INSERTs, modified Jan–Mar rows → UPDATEs)
   This faithfully exercises the INSERT, UPDATE, and UNCHANGED classifications.
 
-## Si vienes de dbt + Snowflake
+## Comparación con dbt + Snowflake
 
 Esta tabla mapea cada archivo del proyecto a su equivalente en dbt/Snowflake:
 
