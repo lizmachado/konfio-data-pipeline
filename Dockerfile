@@ -39,3 +39,4 @@ RUN mkdir -p /app/warehouse /app/events
 ENV PYTHONPATH=/app
 
 CMD ["python", "src/main.py"]
+#you can also run debug_pipeline.py for more details of the steps 
