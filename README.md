@@ -271,6 +271,79 @@ Docker Compose sobreescribe estas variables para las rutas del contenedor (`/app
 3. **Sin DELETES naturales:** La API no elimina datos históricos. Los DELETE en CDC se detectarían si una fila existente en Iceberg no aparece en la nueva extracción, pero en la práctica esto no ocurre con esta fuente.
 4. **Ejecución diaria:** El pipeline está diseñado para ejecutarse una vez al día (o bajo demanda). No es un pipeline streaming.
 5. **Single node:** El pipeline corre en `local[*]` mode (un solo nodo). Para producción se configuraría un cluster Spark, pero el código es el mismo.
-=======
-# konfio-data-pipeline
+
+## Cómo testear el pipeline
+
+### Opción 1: Docker 
+
+Solo necesitas Docker instalado. No importa tu sistema operativo (macOS, Linux, Windows con WSL).
+
+```bash
+git clone https://github.com/lizmachado/konfio-data-pipeline.git
+cd konfio-data-pipeline
+docker compose up --build
+```
+
+Docker se encarga de instalar Java, Python, PySpark y el JAR de Iceberg automáticamente. Al terminar verás el resumen del pipeline en la terminal.
+
+### Opción 2: GitHub Codespaces (sin instalar nada) -- testeado personalmente
+
+1. Ve al repositorio en GitHub y haz clic en **Code → Codespaces → Create codespace on main**
+2. Espera a que el contenedor se construya (~2 min). El `devcontainer.json` instala Python 3.11, Java 17 y Docker automáticamente
+3. En la terminal del Codespace:
+
+```bash
+docker compose up --build
+```
+
+> **Nota:** El Codespace usa Ubuntu. La configuración de `devcontainer.json` ya incluye todas las dependencias necesarias.
+
+### Opción 3: Ejecución local (sin Docker)
+
+**Requisitos:**
+- Python 3.11 (recomendado) o 3.12
+- Java 11+ (OpenJDK)
+- Conexión a internet (para la API de Frankfurter)
+
+**Pasos:**
+
+```bash
+# 1. Instalar dependencias
+pip install -r requirements.txt
+
+# 2. Descargar el JAR de Iceberg (~30 MB)
+mkdir -p jars
+curl -fsSL -o jars/iceberg-spark-runtime-3.5_2.12-1.7.1.jar \
+  https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-3.5_2.12/1.7.1/iceberg-spark-runtime-3.5_2.12-1.7.1.jar
+
+# 3. Ejecutar el pipeline
+python src/main.py
+
+# 4. (Opcional) Ejecutar con debug detallado
+python debug_pipeline.py
+
+# 5. Ejecutar tests unitarios
+pytest tests/test_transform.py -v
+```
+
+> **Nota Windows:** PySpark puede mostrar warnings sobre archivos temporales (`Unable to delete file`) al final. Estos  no afectan los resultados.
+
+> **Nota:** Python 3.13 no es compatible con PySpark 3.5. Usa Python 3.11 o 3.12.
+
+### Verificar resultados
+
+Después de ejecutar el pipeline, verifica que se generaron los archivos:
+
+```
+warehouse/          ← Tablas Iceberg (archivos Parquet + metadata JSON)
+├── db/
+│   ├── tipos_cambio_enriquecidos/
+│   ├── metricas_mensuales/
+│   ├── anomalias/
+│   ├── reporte_calidad/
+│   └── dim_currency/
+events/             ← Eventos CDC en formato JSON
+├── INSERT_2024-01-02_MXN_*.json
+├── ...
+```
 
