@@ -1,0 +1,4 @@
+pyspark==3.5.5
+requests==2.32.3
+tenacity==9.0.0
+pytest==8.3.4

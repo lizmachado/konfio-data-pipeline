@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  pipeline:
+    build: .
+    container_name: konfio_pipeline
+    environment:
+      # Date range (override with: docker compose run -e START_DATE=2024-01-01 pipeline)
+      START_DATE: "2024-01-01"
+      END_DATE: "2024-06-30"
+      BASE_CURRENCY: "USD"
+      TARGET_CURRENCIES: "MXN,EUR,BRL,COP"
+
+      # Retry / timeout settings
+      MAX_RETRIES: "5"
+      REQUEST_TIMEOUT: "30"
+      RETRY_WAIT_MIN: "1"
+      RETRY_WAIT_MAX: "10"
+
+      # Paths inside the container
+      WAREHOUSE_PATH: "/app/warehouse"
+      EVENTS_PATH: "/app/events"
+      ICEBERG_JAR: "/opt/iceberg-spark-runtime.jar"
+
+      # Spark tuning
+      PYSPARK_PYTHON: "python3"
+    volumes:
+      # Persist Iceberg warehouse and events outside the container
+      - ./warehouse:/app/warehouse
+      - ./events:/app/events

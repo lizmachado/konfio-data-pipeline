@@ -1,0 +1,26 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Large binaries — Docker downloads its own copy
+jars/
+hadoop/
+
+# Pipeline output (regenerated on every run)
+warehouse/
+events/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Claude Code
+.claude/
+
+# Test files
+test_api.py
+
+# Confidential
+prueba_tecnica_data_engineer_konfio.pdf

@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+jars/
+warehouse/
+events/
+.git/
+.idea/
+.vscode/
+.claude/
+*.md
+!README.md
+prueba_tecnica_data_engineer_konfio.pdf
