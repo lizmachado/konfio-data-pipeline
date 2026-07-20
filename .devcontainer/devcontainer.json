@@ -9,7 +9,9 @@
       "version": "17",
       "installMaven": "false"
     },
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": false
+    }
   },
   "containerEnv": {
     "PYTHONPATH": "/workspaces/konfio-data-pipeline"
