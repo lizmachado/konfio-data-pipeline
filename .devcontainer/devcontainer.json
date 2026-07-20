@@ -1,7 +1,10 @@
 {
   "name": "Konfio Pipeline",
-  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    },
     "ghcr.io/devcontainers/features/java:1": {
       "version": "17",
       "installMaven": "false"
@@ -9,11 +12,9 @@
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "containerEnv": {
-    "JAVA_HOME": "/usr/local/sdkman/candidates/java/current",
     "PYTHONPATH": "/workspaces/konfio-data-pipeline"
   },
   "postCreateCommand": "pip install -r requirements.txt && mkdir -p jars && curl -fsSL -o jars/iceberg-spark-runtime-3.5_2.12-1.7.1.jar https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-3.5_2.12/1.7.1/iceberg-spark-runtime-3.5_2.12-1.7.1.jar",
-  "forwardPorts": [],
   "customizations": {
     "vscode": {
       "extensions": [
