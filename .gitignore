@@ -19,8 +19,6 @@ notebooks/
 .vscode/
 *.swp
 
-# Claude Code
-.claude/
 
 # Test files
 test_api.py
