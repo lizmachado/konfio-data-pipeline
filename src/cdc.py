@@ -54,7 +54,6 @@ def compute_cdc(
     new_df: DataFrame,
     target_table: str,
 ) -> DataFrame:
-    """Compare new data vs Iceberg snapshot — returns DataFrame with operation_type column."""
     now = datetime.utcnow()
 
     new_hashed = _compute_row_hash(new_df).withColumn(

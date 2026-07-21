@@ -1,9 +1,3 @@
-"""
-Load layer — persists DataFrames as Iceberg tables.
-
-Fact table uses MERGE INTO (CDC-driven). Derived tables use createOrReplace.
-"""
-
 import logging
 
 from pyspark.sql import DataFrame, SparkSession

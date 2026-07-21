@@ -1,5 +1,3 @@
-"""Transform layer — clean, enrich, aggregate, detect anomalies, quality report."""
-
 import logging
 from datetime import date
 
@@ -73,7 +71,6 @@ def enrich(df: DataFrame) -> DataFrame:
 # ─── 3. Aggregate ─────────────────────────────────────────────────────────────
 
 def aggregate(df: DataFrame) -> DataFrame:
-    """Monthly summary per currency — one row per (year, month, currency_code)."""
     logger.info("Building monthly aggregations")
 
     return (
@@ -93,7 +90,6 @@ def aggregate(df: DataFrame) -> DataFrame:
 # ─── 4. Detect anomalies ──────────────────────────────────────────────────────
 
 def detect_anomalies(df: DataFrame) -> DataFrame:
-    """Flag days where |delta_daily| > threshold × rolling 30d std dev (z-score)."""
     logger.info("Detecting anomalies (threshold: %.1f σ)", config.ANOMALY_THRESHOLD)
 
     w_order = Window.partitionBy("currency_code").orderBy("rate_date")
@@ -125,7 +121,6 @@ def detect_anomalies(df: DataFrame) -> DataFrame:
 # ─── 5. Quality report ────────────────────────────────────────────────────────
 
 def quality_report(df: DataFrame, start_date: str, end_date: str) -> DataFrame:
-    """Classify each day in the range as available, weekend, or no_data."""
     logger.info("Generating data quality report")
 
     # spark.range() runs in the JVM — avoids Python worker issues on Windows

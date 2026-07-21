@@ -1,10 +1,3 @@
-"""
-Events layer — Kafka simulation via JSON files.
-
-Each CDC change (INSERT/UPDATE/DELETE) produces one JSON file in /events/.
-UNCHANGED rows don't generate events. In production this would be Kafka + Avro.
-"""
-
 import json
 import logging
 import os

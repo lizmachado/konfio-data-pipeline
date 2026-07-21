@@ -11,6 +11,9 @@ hadoop/
 warehouse/
 events/
 
+# Notebooks (local analysis only)
+notebooks/
+
 # IDE
 .idea/
 .vscode/
